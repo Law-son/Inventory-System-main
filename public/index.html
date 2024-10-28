@@ -3,61 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inventory Management System</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="">
     <header class="mb-2">
         <nav class="bg-slate-800 px-10 py-10 flex justify-between align-center"> 
-             <div>
-                 <h1 class="text-2xl font-extrabold text-gray-200">INVENTORY MANAGEMENT SYSTEM</h1>
-             </div>
- 
-             <div class="flex space-x-3 ">
-        
-                 <a href="./auth/signup.html">
-                     <span class="text-white px-3">Don't have an account?</span><button class="bg-gray-600 py-2 px-3 rounded text-white text-sm font-semibold">Sign up</button>
-                 </a>
-             </div>
+            <div>
+                <h1 class="text-2xl font-extrabold text-gray-200">INVENTORY MANAGEMENT SYSTEM</h1>
+            </div>
+            <div class="flex space-x-3">
+                <a href="./auth/signup.html">
+                    <span class="text-white px-3">Don't have an account?</span>
+                    <button class="bg-gray-600 py-2 px-3 rounded text-white text-sm font-semibold">Sign up</button>
+                </a>
+            </div>
         </nav>
-     </header>
+    </header>
  
-     <div class="flex justify-center mt-14">
-         <h2 class="text-3xl text-slate-700 font-bold relative">LOG IN TO YOUR PORTAL</h2>
-     </div>
+    <div class="flex justify-center mt-14">
+        <h2 class="text-3xl text-slate-700 font-bold relative">LOG IN TO YOUR PORTAL</h2>
+    </div>
  
-     <div class="w-ful">
-         <div class="flex justify-center">
-             <div>
-                 <form action="" class="mt-5 bg-zinc-400 px-8 py-6 mb-10 rounded-lg ">
-                     <div class="grid gap-4">
-                        
-         
-                         <div>
-                             <label for="email" class="block text-lg font-medium text-gray-900 dark:text-white">Email</label>
-                             <input type="email" id="email" class="bg-gray-200  text-gray-900 text-sm rounded block w-96 p-2.5" placeholder="you@example.com" required />
-                         </div>
-         
-                         <div>
-                             <label for="password" class="block text-lg font-medium text-gray-900 dark:text-white">Password</label>
-                             <input type="password" id="email" class="bg-gray-200  text-gray-900 text-sm rounded block w-96 p-2.5" placeholder="6 characters or more" required />
-                         </div>
+    <div class="w-full">
+        <div class="flex justify-center">
+            <div>
+                <form id="login-form" class="mt-5 bg-zinc-400 px-8 py-6 mb-10 rounded-lg">
+                    <div class="grid gap-4">
+                        <div>
+                            <label for="email" class="block text-lg font-medium text-gray-900">Email</label>
+                            <input type="email" id="email" class="bg-gray-200 text-gray-900 text-sm rounded block w-96 p-2.5" placeholder="you@example.com" required>
+                        </div>
+                        <div>
+                            <label for="password" class="block text-lg font-medium text-gray-900">Password</label>
+                            <input type="password" id="password" class="bg-gray-200 text-gray-900 text-sm rounded block w-96 p-2.5" placeholder="6 characters or more" required>
+                        </div>
+                        <div class="flex justify-center">
+                            <button type="submit" class="bg-slate-800 text-white py-2 px-3 mt-2 rounded w-full">Log in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                         <div>
-                            <p></p>
-                         </div>
-         
-                         <div class="flex justify-center">
-                             <button class="bg-slate-800 text-white py-2 px-3 mt-2 rounded w-full">Log in</button>
-                         </div>
-                         
-         
-                     </div>
-                 </form>
-             </div>
-         </div>
-     </div>
-        <div class="max-w-[450px]"></div>
-     <!-- <footer></footer> -->
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // Make a POST request to the login endpoint
+                const response = await fetch('http://127.0.0.1:8000/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Login failed. Please check your credentials.');
+                }
+
+                const result = await response.json();
+                const token = result.token;  // Assumes the token is returned in the JSON response
+
+                // Save token to localStorage for session management
+                localStorage.setItem('authToken', token);
+                alert('Login successful!');
+                // Redirect to dashboard or home page
+                window.location.href = '/dashboard/dashboard.html';
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert(error.message);
+            }
+        });
+    </script>
 </body>
 </html>
