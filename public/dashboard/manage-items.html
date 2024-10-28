@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav class="bg-slate-800 px-10 py-10 flex justify-between"> 
+        <div>
+            <h1 class="text-2xl font-extrabold text-gray-200">INVENTORY MANAGEMENT SYSTEM</h1>
+        </div>
+
+        <div class="flex space-x-3 ">
+            <div class="">
+                <label for="search" class=" text-sm font-medium text-gray-900 dark:text-white"></label>
+                <input type="search" id="search" class="text-gray-600 text-sm rounded-lg block w-full py-2 px-3" placeholder="Search"/>
+            </div>
+
+            <div>
+                <button class="bg-gray-600 py-2 px-3 rounded-md text-white text-sm font-semibold">Search</button>
+            </div>
+        </div>
+   </nav>
+</header>
+
+<div class="flex justify-between px-20 py-14 align-center">
+    <div>
+        <p class="font-bold text-slate-800" ><a href="">Filter Items</a></p>
+    </div>
+    <div>
+        <button class="bg-gray-600 text-white font-semibold py-3 px-3 rounded-md">+Add Item</button>
+    </div>
+</div>
+
+<!-- <div class="table-auto border-gray-600  bg-beige">
+    <div class="flex justify-around">
+        <div><h2>ID</h2></div> 
+        <div><h2>NAME</h2></div>
+        <div><h2>QUANTITY</h2></div>
+        <div><h2>PRICE</h2></div>
+    </div>
+</div> -->
+<table class="w-full">
+    <thead class="bg-gray-50 border-b-2 border-gray-200 text-slate-800">
+        <tr class="divide-x-2 divide-red">
+            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-center">ID</th>
+            <th class="p-3 text-sm font-semibold tracking-wide text-center">DATE</th>
+            <th class="p-3 text-sm font-semibold tracking-wide text-center">NAME</th>
+            <th class="p-3 text-sm font-semibold tracking-wide text-center">QUANTITY</th>
+            <th class="p-3 text-sm font-semibold tracking-wide text-center">PRICE</th>
+        </tr>
+    </thead>
+</table>
+
+
+</body>
+</html>
