@@ -57,7 +57,7 @@
 
             try {
                 // Make a POST request to the login endpoint
-                const response = await fetch('http://127.0.0.1:8000/auth/login', {
+                const response = await fetch('http://127.0.0.1:8000/accounts/login/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -74,10 +74,9 @@
 
                 // Save token to localStorage for session management
                 localStorage.setItem('authToken', token);
-                alert('Login successful!');
                 // Redirect to dashboard or home page
-                window.location.href = '/dashboard/dashboard.html';
-
+                window.location.href = '/public/dashboard/dashboard.html';
+                alert('Login successful!');
             } catch (error) {
                 console.error('Error:', error);
                 alert(error.message);

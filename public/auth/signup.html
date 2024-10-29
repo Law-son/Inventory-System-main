@@ -54,7 +54,7 @@
 
             try {
                 // Make a POST request to the signup endpoint
-                const response = await fetch('http://127.0.0.1:8000/auth/signup', {
+                const response = await fetch('http://127.0.0.1:8000/accounts/signup/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -67,11 +67,10 @@
                 }
 
                 const result = await response.json();
-                alert('Signup successful!');
-                console.log(response);
                 // Redirect or perform any other action on success
                 window.location.href = '/public/index.html';
-
+                alert('Signup successful!');
+                console.log(response);
             } catch (error) {
                 console.error('Error:', error);
                 alert(error.message);
