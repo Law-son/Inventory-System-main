@@ -76,6 +76,7 @@
                     id="searchItems"
                     class="text-gray-600 text-sm rounded-lg block w-full py-2 px-3 border-slate-800 border-2"
                     placeholder="Search for items by name"
+                    oninput="filterItems()"
                   />
                 </div>
               </div>
@@ -88,7 +89,7 @@
                 </button>
               </div>
             </div>
-            <table id="dataTable" class="w-full">
+            <table id="itemsTable" class="w-full">
               <thead class="bg-gray-50 border-b-2 border-gray-200 text-slate-800">
                 <tr class="divide-x-2 divide-red">
                   <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/20">ID</th>
@@ -99,7 +100,7 @@
                   <th class="p-3 text-sm font-semibold tracking-wide text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody id="tableBody">
+              <tbody id="itemsBody">
                 <!-- Data will be inserted here dynamically -->
               </tbody>
             </table>
@@ -113,18 +114,19 @@
             <div class="flex justify-end px-20 py-10">
               <div>
                 <div class="w-[250px]">
-                  <label for="searchItems" class="sr-only">Search Items</label>
+                  <label for="searchArchives" class="sr-only">Search Items</label>
                   <input
                     type="search"
-                    id="searchItems"
+                    id="searchArchives"
                     class="text-gray-600 text-sm rounded-lg block w-full py-2 px-3 border-slate-800 border-2"
                     placeholder="Search for items by name"
+                    oninput="filterArchives()"
                   />
                 </div>
               </div>
             </div>
 
-            <table id="dataTable" class="w-full">
+            <table id="archiveTable" class="w-full">
               <thead class="bg-gray-50 border-b-2 border-gray-200 text-slate-800">
                 <tr class="divide-x-2 divide-red">
                   <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/20">ID</th>
@@ -135,62 +137,8 @@
                   <th class="p-3 text-sm font-semibold tracking-wide text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr class="divide-x-2 divide-red">
-                  <td class="p-3 text-center">1</td>
-                  <td class="p-3 text-center">Item 1</td>
-                  <td class="p-3 text-center">Category A</td>
-                  <td class="p-3 text-center">10</td>
-                  <td class="p-3 text-center">Kg</td>
-                  <td class="p-3 text-center">
-                    <button class="text-blue-600 mr-3">Restore</button>
-                    <button class="text-red-600">Delete</button>
-                  </td>
-                </tr>
-                <tr class="divide-x-2 divide-red">
-                  <td class="p-3 text-center">2</td>
-                  <td class="p-3 text-center">Item 2</td>
-                  <td class="p-3 text-center">Category B</td>
-                  <td class="p-3 text-center">5</td>
-                  <td class="p-3 text-center">L</td>
-                  <td class="p-3 text-center">
-                    <button class="text-blue-600 mr-3">Restore</button>
-                    <button class="text-red-600">Delete</button>
-                  </td>
-                </tr>
-                <tr class="divide-x-2 divide-red">
-                  <td class="p-3 text-center">3</td>
-                  <td class="p-3 text-center">Item 3</td>
-                  <td class="p-3 text-center">Category C</td>
-                  <td class="p-3 text-center">8</td>
-                  <td class="p-3 text-center">cm</td>
-                  <td class="p-3 text-center">
-                    <button class="text-blue-600 mr-3">Restore</button>
-                    <button class="text-red-600">Delete</button>
-                  </td>
-                </tr>
-                <tr class="divide-x-2 divide-red">
-                  <td class="p-3 text-center">4</td>
-                  <td class="p-3 text-center">Item 4</td>
-                  <td class="p-3 text-center">Category D</td>
-                  <td class="p-3 text-center">15</td>
-                  <td class="p-3 text-center">bag(s)</td>
-                  <td class="p-3 text-center">
-                    <button class="text-blue-600 mr-3">Restore</button>
-                    <button class="text-red-600">Delete</button>
-                  </td>
-                </tr>
-                <tr class="divide-x-2 divide-red">
-                  <td class="p-3 text-center">5</td>
-                  <td class="p-3 text-center">Item 5</td>
-                  <td class="p-3 text-center">Category E</td>
-                  <td class="p-3 text-center">20</td>
-                  <td class="p-3 text-center">Kg</td>
-                  <td class="p-3 text-center">
-                    <button class="text-blue-600 mr-3">Restore</button>
-                    <button class="text-red-600">Delete</button>
-                  </td>
-                </tr>
+              <tbody id="archiveBody">
+                <!-- Data will be inserted here dynamically -->
               </tbody>
             </table>
           </div>
@@ -293,6 +241,7 @@
       </div>
     </form>
 
+    <script src="../scripts/manageItems.js"></script>
     <script src="../scripts/logout.js"></script>
     <script src="../scripts/dashboard.js"></script>
 
