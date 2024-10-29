@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
@@ -27,18 +27,10 @@
         <div class="relative">
           <div
             class="tab-item"
-            onclick="showTab('analytics')"
-            class="py-2 px-4 rounded transition-colors duration-300 hover:bg-gray-700"
-          >
-            <h3 class="text-gray-600">Analytics</h3>
-          </div>
-
-          <div
-            class="tab-item"
             onclick="showTab('manageItems')"
             class="py-2 px-4 rounded transition-colors duration-300 hover:bg-gray-700"
           >
-            <h3 class="text-gray-600 mt-2">Manage Items</h3>
+            <h3 class="text-gray-600 pl-4 py-2 mt-2 font-bold cursor-pointer">Manage Items</h3>
           </div>
 
           <div
@@ -46,35 +38,46 @@
             onclick="showTab('archives')"
             class="py-2 px-4 rounded transition-colors duration-300 hover:bg-gray-700"
           >
-            <h3 class="text-gray-600 mt-2 cursor-pointer">Archives</h3>
+            <h3 class="text-gray-600 pl-4 py-2 mt-2 font-bold cursor-pointer">Archives</h3>
           </div>
 
           <div
             class="tab-item"
-            onclick="showTab('logout')"
+            onclick="showTab('settings')"
             class="py-2 px-4 rounded transition-colors duration-300 hover:bg-gray-700"
           >
-            <h3 class="text-gray-600 mt-2">Logout</h3>
+            <h3 class="text-gray-600 pl-4 py-2 mt-2 font-bold cursor-pointer">Settings</h3>
+          </div>
+
+          <div
+          id="logout-button"
+            class="tab-item"
+            class="py-2 px-4 rounded transition-colors duration-300 hover:bg-gray-700 cursor-pointer"
+          >
+            <h3 class="text-gray-600 pl-4 py-2 mt-2 font-bold cursor-pointer">Logout</h3>
           </div>
         </div>
       </div>
 
-      <!-- main-content -->
+      <!-- Main Content -->
       <div class="h-svh max-h-svh w-4/5">
         <div id="content">
-          <div id="analytics" class="tab-content active">
-            <h2 class="text-white">Analytics Content</h2>
-            <!-- <div>asdgfhgjhkjl</div> -->
-          </div>
+          <!-- Manage Items -->
           <div id="manageItems" class="tab-content hidden">
             <h2 class="text-white">Manage Items Content</h2>
             <!-- <p>This is the manage items section.</p> -->
 
             <div class="flex justify-between px-20 py-10">
               <div>
-                <p class="font-bold text-slate-800">
-                  <a href="">Filter Items</a>
-                </p>
+                <div class="w-[250px]">
+                  <label for="searchItems" class="sr-only">Search Items</label>
+                  <input
+                    type="search"
+                    id="searchItems"
+                    class="text-gray-600 text-sm rounded-lg block w-full py-2 px-3 border-slate-800 border-2"
+                    placeholder="Search for items by name"
+                  />
+                </div>
               </div>
               <div>
                 <button
@@ -85,109 +88,153 @@
                 </button>
               </div>
             </div>
-
-            <!-- <div class="table-auto border-gray-600  bg-beige">
-                        <div class="flex justify-around">
-                            <div><h2>ID</h2></div> 
-                            <div><h2>NAME</h2></div>
-                            <div><h2>QUANTITY</h2></div>
-                            <div><h2>PRICE</h2></div>
-                        </div>
-                    </div> -->
             <table id="dataTable" class="w-full">
-              <thead
-                class="bg-gray-50 border-b-2 border-gray-200 text-slate-800"
-              >
+              <thead class="bg-gray-50 border-b-2 border-gray-200 text-slate-800">
                 <tr class="divide-x-2 divide-red">
-                  <th
-                    class="w-24 p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    ID
-                  </th>
-                  <th
-                    class="p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    DATE
-                  </th>
-                  <th
-                    class="p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    NAME
-                  </th>
-                  <th
-                    class="p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    QUANTITY
-                  </th>
-                  <th
-                    class="p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    PRICE
-                  </th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/20">ID</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/5">Name</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/6">Category</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/20">Quantity</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/20">Unit</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center">Actions</th>
                 </tr>
               </thead>
+              <tbody id="tableBody">
+                <!-- Data will be inserted here dynamically -->
+              </tbody>
             </table>
           </div>
 
+          <!-- Archives -->
           <div id="archives" class="tab-content hidden">
             <h2 class="text-white">Archives Content</h2>
             <!-- <p>This is the archives section.</p> -->
 
-            <div class="flex justify-between px-20 py-14 align-center">
-              <div class="w-64">
-                <button
-                  class="bg-gray-600 text-white font-semibold py-3 px-4 rounded-md"
-                >
-                  Filter Archives
-                </button>
-                <!-- <p class="font-bold text-slate-800" ><a href="">Filter</a></p> -->
+            <div class="flex justify-end px-20 py-10">
+              <div>
+                <div class="w-[250px]">
+                  <label for="searchItems" class="sr-only">Search Items</label>
+                  <input
+                    type="search"
+                    id="searchItems"
+                    class="text-gray-600 text-sm rounded-lg block w-full py-2 px-3 border-slate-800 border-2"
+                    placeholder="Search for items by name"
+                  />
+                </div>
               </div>
-              <!-- <div>
-                            <button class="bg-gray-600 text-white font-semibold py-3 px-3">+ Add Item</button>
-                        </div> -->
             </div>
 
-            <table class="w-full">
-              <thead
-                class="bg-gray-50 border-b-2 border-gray-200 text-slate-800"
-              >
+            <table id="dataTable" class="w-full">
+              <thead class="bg-gray-50 border-b-2 border-gray-200 text-slate-800">
                 <tr class="divide-x-2 divide-red">
-                  <th
-                    class="w-24 p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    ID
-                  </th>
-                  <th
-                    class="p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    DATE
-                  </th>
-                  <th
-                    class="p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    NAME
-                  </th>
-                  <th
-                    class="p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    QUANTITY
-                  </th>
-                  <th
-                    class="p-3 text-sm font-semibold tracking-wide text-center"
-                  >
-                    PRICE
-                  </th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/20">ID</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/5">Name</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/6">Category</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/20">Quantity</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center w-1/20">Unit</th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-center">Actions</th>
                 </tr>
               </thead>
+              <tbody>
+                <tr class="divide-x-2 divide-red">
+                  <td class="p-3 text-center">1</td>
+                  <td class="p-3 text-center">Item 1</td>
+                  <td class="p-3 text-center">Category A</td>
+                  <td class="p-3 text-center">10</td>
+                  <td class="p-3 text-center">Kg</td>
+                  <td class="p-3 text-center">
+                    <button class="text-blue-600 mr-3">Restore</button>
+                    <button class="text-red-600">Delete</button>
+                  </td>
+                </tr>
+                <tr class="divide-x-2 divide-red">
+                  <td class="p-3 text-center">2</td>
+                  <td class="p-3 text-center">Item 2</td>
+                  <td class="p-3 text-center">Category B</td>
+                  <td class="p-3 text-center">5</td>
+                  <td class="p-3 text-center">L</td>
+                  <td class="p-3 text-center">
+                    <button class="text-blue-600 mr-3">Restore</button>
+                    <button class="text-red-600">Delete</button>
+                  </td>
+                </tr>
+                <tr class="divide-x-2 divide-red">
+                  <td class="p-3 text-center">3</td>
+                  <td class="p-3 text-center">Item 3</td>
+                  <td class="p-3 text-center">Category C</td>
+                  <td class="p-3 text-center">8</td>
+                  <td class="p-3 text-center">cm</td>
+                  <td class="p-3 text-center">
+                    <button class="text-blue-600 mr-3">Restore</button>
+                    <button class="text-red-600">Delete</button>
+                  </td>
+                </tr>
+                <tr class="divide-x-2 divide-red">
+                  <td class="p-3 text-center">4</td>
+                  <td class="p-3 text-center">Item 4</td>
+                  <td class="p-3 text-center">Category D</td>
+                  <td class="p-3 text-center">15</td>
+                  <td class="p-3 text-center">bag(s)</td>
+                  <td class="p-3 text-center">
+                    <button class="text-blue-600 mr-3">Restore</button>
+                    <button class="text-red-600">Delete</button>
+                  </td>
+                </tr>
+                <tr class="divide-x-2 divide-red">
+                  <td class="p-3 text-center">5</td>
+                  <td class="p-3 text-center">Item 5</td>
+                  <td class="p-3 text-center">Category E</td>
+                  <td class="p-3 text-center">20</td>
+                  <td class="p-3 text-center">Kg</td>
+                  <td class="p-3 text-center">
+                    <button class="text-blue-600 mr-3">Restore</button>
+                    <button class="text-red-600">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
-          <div id="logout" class="tab-content hidden">
-            <h2 class="text-white">Logout Content</h2>
-            <p>You have logged out.</p>
+
+          <!-- Settings -->
+    <div id="settings" class="tab-content h-[100vh] hidden">
+      <div class="flex flex-col px-20 py-10">
+          <div class="w-[550px] mb-8">
+            <div class="flex w-full">
+                <input type="text" id="categoryName" class="text-gray-600 text-sm rounded-lg block w-[800px] py-2 px-3 border-slate-800 border-2" placeholder="Enter category name">
+                <button id="addCategoryBtn" class="bg-gray-600 text-white ml-4 py-2 px-3 whitespace-nowrap rounded-md">Add Category</button>
+            </div>
+            <div class="mt-3">
+              <h2 class="text-lg font-semibold">Existing Categories</h2>
+              <ul id="categoryList" class="list-disc pl-5">
+                <li>Tools</li>
+                <li>Stationaneries</li>
+                <li>Food</li>
+              </ul>
+            </div>
           </div>
+          <div class="w-[550px]">
+            <div class="flex w-full">
+              <input type="text" id="unitName2" class="text-gray-600 text-sm rounded-lg block w-[800px] py-2 px-3 border-slate-800 border-2" placeholder="Enter unit name">
+                <button id="addUnitBtn2" class="bg-gray-600 text-white ml-4 py-2 px-3 whitespace-nowrap rounded-md">Add Unit</button>
+            </div>
+            <div class="mt-3">
+              <h2 class="text-lg font-semibold">Existing Units</h2>
+              <ul id="unitList2" class="list-disc pl-5">
+                <li>Kg</li>
+                <li>cm</li>
+                <li>bag(s)</li>
+              </ul>
+            </div>
+        </div>
+      </div>
+    
+    </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+</div>
 
     <!-- Add Item form -->
     <form
@@ -246,85 +293,8 @@
       </div>
     </form>
 
-    <script>
-      const addFormData = document.getElementById("addFormData");
-      const addItemButton = document.getElementById("addItemBtn");
-      const itemForm = document.getElementById("itemForm");
+    <script src="../scripts/logout.js"></script>
+    <script src="../scripts/dashboard.js"></script>
 
-      // this code shows the form to add a new item
-      addItemButton.addEventListener("click", () =>
-        itemForm.classList.remove("hidden")
-      );
-
-      // This function is responsible for creating a new data and adding it to the inventry list
-      function handleAddItem() {
-        const randomId = crypto.randomUUID().split("-")[0];
-        const date = new Date().toLocaleDateString();
-
-        const itemName = document.getElementById("name");
-        const itemQuantity = document.getElementById("quantity");
-        const itemPrice = document.getElementById("price");
-
-        if (!itemName.value || !itemQuantity.value || !itemPrice.value) return;
-
-        let html = `
-                <td class="w-24 p-3 text-sm font-semibold tracking-wide text-center">${randomId}</td>
-                <td class="p-3 text-sm font-semibold tracking-wide text-center">${date}</td>
-                <td class="p-3 text-sm font-semibold tracking-wide text-center">${itemName.value.trim()}</td>
-                <td class="p-3 text-sm font-semibold tracking-wide text-center">${itemQuantity.value.trim()}</td>
-                <td class="p-3 text-sm font-semibold tracking-wide text-center">${itemPrice.value.trim()}</td>
-            `;
-
-        const tableRow = document.createElement("tr");
-        tableRow.classList.add("divide-x-2", "divide-red");
-        tableRow.innerHTML = html;
-
-        const dataTable = document.getElementById("dataTable");
-        dataTable.appendChild(tableRow);
-
-        itemName.value = "";
-        itemQuantity.value = "";
-        itemPrice.value = "";
-
-        //console.log('item added');
-
-        itemForm.classList.add("hidden");
-      }
-
-      // This code triggers and event that calls the handleAddItem() function
-      addFormData.addEventListener("click", (e) => {
-        e.preventDefault(); // this line prevents the browser from reloading
-        handleAddItem();
-      });
-
-      function showTab(tabId) {
-        // Hide all tab content
-        const contents = document.querySelectorAll(".tab-content");
-        contents.forEach((content) => {
-          content.classList.add("hidden");
-          content.classList.remove("block");
-        });
-
-        // Remove 'active' class from all tabs
-        const tabs = document.querySelectorAll(".tab-item"); // Change selector to .tab-item
-        tabs.forEach((tab) => {
-          tab.classList.remove("bg-gray-700", "text-white");
-          tab.querySelector("h3").classList.remove("text-white"); // Reset text color
-          tab.querySelector("h3").classList.add("text-gray-600"); // Default text color
-        });
-
-        // Show the selected tab content
-        const selectedContent = document.getElementById(tabId);
-        selectedContent.classList.remove("hidden");
-        selectedContent.classList.add("block");
-
-        // Add 'active' class to the selected tab
-        const selectedTab = [...tabs].find((tab) =>
-          tab.getAttribute("onclick").includes(tabId)
-        );
-        selectedTab.classList.add("bg-gray-700");
-        selectedTab.querySelector("h3").classList.add("text-white"); // Change text color to white
-      }
-    </script>
   </body>
-</html>
+  </html>

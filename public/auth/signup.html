@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign Up - Inventory Management System</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <header class="mb-2">
         <nav class="bg-slate-800 px-10 py-10">
             <div>
-                <h1 class="  text-2xl font-extrabold text-gray-200">INVENTORY MANAGEMENT SYSTEM</h1>
+                <h1 class="text-2xl font-extrabold text-gray-200">INVENTORY MANAGEMENT SYSTEM</h1>
             </div>
         </nav>
     </header>
@@ -22,36 +22,60 @@
     <div class="w-full">
         <div class="flex justify-center">
             <div>
-                <form action="" class="mt-5 bg-zinc-400 px-8 py-6 mb-10 rounded-lg ">
+                <form id="signup-form" class="mt-5 bg-zinc-400 px-8 py-6 mb-10 rounded-lg">
                     <div class="grid gap-4">
-                        
-        
-                        
-        
                         <div>
-                            <label for="email" class="block text-lg font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="email" id="email" class="bg-gray-200  text-gray-900 text-sm rounded block w-96 p-2.5" placeholder="you@example.com" required />
+                            <label for="email" class="block text-lg font-medium text-gray-900">Email</label>
+                            <input type="email" id="email" class="bg-gray-200 text-gray-900 text-sm rounded block w-96 p-2.5" placeholder="you@example.com" required>
                         </div>
-        
                         <div>
-                            <label for="password" class="block text-lg font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" id="email" class="bg-gray-200  text-gray-900 text-sm rounded block w-96 p-2.5" placeholder="6 characters or more" required />
+                            <label for="password" class="block text-lg font-medium text-gray-900">Password</label>
+                            <input type="password" id="password" class="bg-gray-200 text-gray-900 text-sm rounded block w-96 p-2.5" placeholder="6 characters or more" required>
                         </div>
-
                         <div>
-                            <p>Already have an account? <span><a href="../index.html">Log in</a></span></p>
+                            <p>Already have an account? <a href="../index.html" class="text-blue-500">Log in</a></p>
                         </div>
-        
                         <div class="flex justify-center">
-                            <button class="bg-slate-800 text-white py-2 px-3 mt-2 rounded w-full">Submit</button>
+                            <button type="submit" class="bg-slate-800 text-white py-2 px-3 mt-2 rounded w-full">Submit</button>
                         </div>
-                        
-        
                     </div>
                 </form>
             </div>
         </div>
-        
     </div>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // Make a POST request to the signup endpoint
+                const response = await fetch('http://127.0.0.1:8000/accounts/signup/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Signup failed. Please try again.');
+                }
+
+                const result = await response.json();
+                // Redirect or perform any other action on success
+                window.location.href = '/public/index.html';
+                alert('Signup successful!');
+                console.log(response);
+            } catch (error) {
+                console.error('Error:', error);
+                alert(error.message);
+            }
+        });
+    </script>
 </body>
 </html>
