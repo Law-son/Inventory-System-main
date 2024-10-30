@@ -121,26 +121,44 @@ async function fetchUnits() {
 
 function loadCategories(data) {
     const categoryList = document.getElementById('categoryList');
+    const categoryDropdown = document.getElementById('category');
+    
     categoryList.innerHTML = '';
+    categoryDropdown.innerHTML = '';
 
     data.forEach(item => {
         const listItem = document.createElement('li');
         listItem.textContent = `${item.name}`;
         categoryList.appendChild(listItem);
-    });
+
+        const option = document.createElement('option');
+        option.value = item.id;
+        option.textContent = item.name;
+        option.id = item.id;
+        categoryDropdown.appendChild(option);
+    }); 
 }
 
 
 function loadUnits(data) {
     const unitList = document.getElementById('unitList');
+    const unitDropdown = document.getElementById('unit');
     unitList.innerHTML = '';
+    unitDropdown.innerHTML = '';
 
     data.forEach(item => {
         const listItem = document.createElement('li');
         listItem.textContent = `${item.name}`;
         unitList.appendChild(listItem);
+
+        const option = document.createElement('option');
+        option.value = item.id;
+        option.textContent = item.name;
+        option.id = item.id;
+        unitDropdown.appendChild(option);
     });
 }
+
 
 
 // Call both fetchItemData and fetchArchiveData when the page loads
