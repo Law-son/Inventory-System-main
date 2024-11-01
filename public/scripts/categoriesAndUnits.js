@@ -16,7 +16,7 @@ async function fetchCategories() {
 
         const data = await response.json();
         console.log("categories", data);
-        loadCategories(data);
+        loadCategories(data, 'categoryList', document.getElementById('category'), document.getElementById('categoryTwo'));
     } catch (error) {
         console.error('Error fetching items:', error);
     }
@@ -113,49 +113,57 @@ async function fetchUnits() {
 
         const data = await response.json();
         console.log("units", data);
-        loadUnits(data);
+        loadUnits(data, 'unitList', document.getElementById('unit'), document.getElementById('unitTwo'));
     } catch (error) {
         console.error('Error fetching archives:', error);
     }
 }
 
-function loadCategories(data) {
-    const categoryList = document.getElementById('categoryList');
-    const categoryDropdown = document.getElementById('category');
-    
-    categoryList.innerHTML = '';
-    categoryDropdown.innerHTML = '';
+function loadCategories(data, categoryListId, ...dropdowns) {
+    const categoryList = document.getElementById(categoryListId);
+    categoryList.innerHTML = ''; // Clear the existing list
+
+    dropdowns.forEach(dropdown => {
+        dropdown.innerHTML = ''; // Clear existing options for each dropdown
+    });
 
     data.forEach(item => {
+        // Populate the category list
         const listItem = document.createElement('li');
         listItem.textContent = `${item.name}`;
         categoryList.appendChild(listItem);
 
-        const option = document.createElement('option');
-        option.value = item.id;
-        option.textContent = item.name;
-        option.id = item.id;
-        categoryDropdown.appendChild(option);
-    }); 
+        // Create option element for each dropdown
+        dropdowns.forEach(dropdown => {
+            const option = document.createElement('option');
+            option.value = item.id;
+            option.textContent = item.name;
+            dropdown.appendChild(option);
+        });
+    });
 }
 
+function loadUnits(data, unitListId, ...dropdowns) {
+    const unitList = document.getElementById(unitListId);
+    unitList.innerHTML = ''; // Clear the existing list
 
-function loadUnits(data) {
-    const unitList = document.getElementById('unitList');
-    const unitDropdown = document.getElementById('unit');
-    unitList.innerHTML = '';
-    unitDropdown.innerHTML = '';
+    dropdowns.forEach(dropdown => {
+        dropdown.innerHTML = ''; // Clear existing options for each dropdown
+    });
 
     data.forEach(item => {
+        // Populate the unit list
         const listItem = document.createElement('li');
         listItem.textContent = `${item.name}`;
         unitList.appendChild(listItem);
 
-        const option = document.createElement('option');
-        option.value = item.id;
-        option.textContent = item.name;
-        option.id = item.id;
-        unitDropdown.appendChild(option);
+        // Create option element for each dropdown
+        dropdowns.forEach(dropdown => {
+            const option = document.createElement('option');
+            option.value = item.id;
+            option.textContent = item.name;
+            dropdown.appendChild(option);
+        });
     });
 }
 

@@ -1,3 +1,4 @@
+let currentItemId = null;
 
 async function fetchItemData() {
     const token = localStorage.getItem('authToken');
@@ -6,9 +7,9 @@ async function fetchItemData() {
         const response = await fetch('http://127.0.0.1:8000/items/user/', {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',       
+                'Content-Type': 'application/json',
                 'Authorization': `Token ${token}`
-            }   
+            }
         });
 
         if (!response.ok) {
@@ -186,6 +187,15 @@ function loadItemData(data) {
     const tableBody = document.getElementById('itemsBody');
     const updateForm = document.getElementById('updateForm'); // Get the update form
     const closeButton = document.getElementById("close2"); // Get the close button
+    const updateItemForm = document.getElementById('updateItemForm');
+    const nameInput = document.getElementById('nameTwo');
+    const categoryInput = document.getElementById('categoryTwo');
+    const quantityInput = document.getElementById('quantityTwo');
+    const reorderQuantityInput = document.getElementById('reorder-quantityTwo');
+    const unitInput = document.getElementById('unitTwo');
+    const priceInput = document.getElementById('priceTwo');
+    const descriptionInput = document.getElementById('descriptionTwo');
+
     tableBody.innerHTML = '';
 
     data.forEach(item => {
@@ -212,12 +222,41 @@ function loadItemData(data) {
         tableBody.appendChild(row);
     });
 
-    // Attach a single event listener to the table body for event delegation
+    // Event delegation on the table body for updating items
     tableBody.addEventListener('click', function (event) {
         if (event.target && event.target.classList.contains('updateBtn')) {
+            const row = event.target.closest('tr');
+            const itemId = parseInt(row.id, 10); // Ensure itemId is an integer
+            const item = data.find(d => d.id === itemId);
+            currentItemId = row.id;
+
+            // Populate the update form fields with item data
+            if (item) {
+                nameInput.value = item.name;
+                quantityInput.value = item.quantity;
+                reorderQuantityInput.value = item.reorder_quantity;
+                priceInput.value = item.price;
+                descriptionInput.value = item.description;
+
+                // Set selected category by matching name to find the correct ID
+                Array.from(categoryInput.options).forEach(option => {
+                    if (option.textContent === item.category) {
+                        categoryInput.value = option.value; // Set the category ID as value
+                    }
+                });
+
+                // Set selected unit by matching name to find the correct ID
+                Array.from(unitInput.options).forEach(option => {
+                    if (option.textContent === item.unit) {
+                        unitInput.value = option.value; // Set the unit ID as value
+                    }
+                });
+            }
+
             // Show the update form
             updateForm.classList.remove('hidden');
         }
+
         if (event.target && event.target.classList.contains('archiveBtn')) {
             archiveItem(event);
         }
@@ -304,7 +343,57 @@ function createItem(event) {
 }
 
 
+function updateItem(event) {
+    event.preventDefault();
+    const updateItemForm = document.getElementById('updateItemForm');
+    const button = document.getElementById('updateFormData');
+    const originalText = button?.textContent;
+    const token = localStorage.getItem('authToken');
+    if (button) button.textContent = "Updating...";
+    const modal = document.getElementById('updateForm');
+
+    const data = {
+        name: document.getElementById('nameTwo').value || '',
+        description: document.getElementById('descriptionTwo').value || '',
+        quantity: document.getElementById('quantityTwo').value || '',
+        reorder_quantity: document.getElementById('reorder-quantityTwo').value || '',
+        price: document.getElementById('priceTwo').value || '',
+        category_id: parseInt(document.getElementById('categoryTwo').value) || 1,
+        unit_id: parseInt(document.getElementById('unitTwo').value) || 1
+    };
+
+
+    fetch(`http://127.0.1:8000/items/update/${currentItemId}/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error updating item');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Item updated successfully!');
+            fetchItemData();
+        })
+        .catch(error => {
+            console.error(error);
+            alert(error.message);
+        })
+        .finally(() => {
+            modal.classList.add('hidden');
+            button.textContent = originalText;
+        });
+}
+
+
 document.getElementById('addFormData').addEventListener('click', createItem);
+document.getElementById('updateFormData').addEventListener('click', updateItem);
 
 
 // Call both fetchItemData and fetchArchiveData when the page loads
