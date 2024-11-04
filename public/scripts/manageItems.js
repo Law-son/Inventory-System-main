@@ -4,7 +4,7 @@ async function fetchItemData() {
     const token = localStorage.getItem('authToken');
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/items/user/', {
+        const response = await fetch('https://pk1bfm0q-8000.uks1.devtunnels.ms/items/user/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ async function fetchArchiveData() {
     const token = localStorage.getItem('authToken');
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/items/archives/', {
+        const response = await fetch('https://pk1bfm0q-8000.uks1.devtunnels.ms/items/archives/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ function archiveItem(event) {
         return;
     }
 
-    fetch(`http://127.0.0.1:8000/items/archive/${id}/`, {
+    fetch(`https://pk1bfm0q-8000.uks1.devtunnels.ms/items/archive/${id}/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ function restoreArchive(event) {
         return;
     }
 
-    fetch(`http://127.0.0.1:8000/items/restore/${id}/`, {
+    fetch(`https://pk1bfm0q-8000.uks1.devtunnels.ms/items/restore/${id}/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ function deleteArchive(event) {
         return;
     }
 
-    fetch(`http://127.0.0.1:8000/items/delete/${id}/`, {
+    fetch(`https://pk1bfm0q-8000.uks1.devtunnels.ms/items/delete/${id}/`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

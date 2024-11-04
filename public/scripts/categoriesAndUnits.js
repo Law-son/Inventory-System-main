@@ -2,7 +2,7 @@ async function fetchCategories() {
     const token = localStorage.getItem('authToken');
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/items/categories/', {
+        const response = await fetch('https://pk1bfm0q-8000.uks1.devtunnels.ms/items/categories/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ document.getElementById('categoryForm')?.addEventListener('submit', async (e) =>
     const token = localStorage.getItem('authToken');
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/items/category/add/', {
+        const response = await fetch('https://pk1bfm0q-8000.uks1.devtunnels.ms/items/category/add/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ document.getElementById('unitForm')?.addEventListener('submit', async (e) => {
     const token = localStorage.getItem('authToken');
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/items/unit/add/', {
+        const response = await fetch('https://pk1bfm0q-8000.uks1.devtunnels.ms/items/unit/add/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ async function fetchUnits() {
     const token = localStorage.getItem('authToken');
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/items/units/', {
+        const response = await fetch('https://pk1bfm0q-8000.uks1.devtunnels.ms/items/units/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
