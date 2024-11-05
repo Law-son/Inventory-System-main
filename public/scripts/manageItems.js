@@ -312,7 +312,6 @@ function createItem(event) {
         unit_id: parseInt(document.getElementById('unit').value) || 1
     };
 
-    console.log(data);
 
     fetch('https://pk1bfm0q-8000.uks1.devtunnels.ms/items/create/', {
         method: 'POST',
